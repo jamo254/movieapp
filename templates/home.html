@@ -1,28 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Bootstrap CSS -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
-      crossorigin="anonymous"
-    />
+{% extends 'layout.html' %}
 
-    <title>Homet</title>
-  </head>
-  <body>
-    {%include 'navigation.html'%}
+<!--Title-->
+{%block title%}
+<title>Home</title>
+{%endblock%}
+{%block content%}
+<h3 class="mt-5 text-center">Online Movie Cinema</h3>
 
-    <h2>Online Movie Cinema</h2>
-    <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
-      crossorigin="anonymous"
-    ></script>
-  </body>
-</html>
+
+<div class="row mt-5">
+  {%for m in movie%}
+  <div class="col-sm">
+    <div class="card" style="width: 18rem">
+      <img src="http://img.youtube.com/vi/{{m.trailer}}/maxresdefault.jpg" class="card-img-top" alt="..." />
+      <div class="card-body">
+        <h5 class="card-title">{{ m.name }} </h5>
+        {% if m.star > 3%}
+        <span class="badge bg-danger">High rating</span>
+        {% else %}
+        <span class="badge bg-warning text-dark">Average rating</span>
+        {% endif %}
+        <p class="card-text">{{m.description}} </p>
+        <a href="{% url 'movie' m.id %}" class="btn btn-primary">Trailer</a>
+      </div>
+    </div>
+
+  </div>
+  {%endfor%}
+
+
+</div>
+
+
+
+
+
+{%endblock%}
